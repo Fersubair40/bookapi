@@ -1,0 +1,17 @@
+# WARNING: this file is not suitable for production, please use with caution
+version: '3'
+
+services:
+  web:
+    image: bookapi
+    build: .
+    command: gunicorn -b 0.0.0.0:5000 bookapi.wsgi:app
+    env_file:
+      - ./.flaskenv
+    environment:
+      - DATABASE_URI=postgres://qywpankx:1HWwrJUZtO5WRcMov6i6QsPQwr1nwT2E@rajje.db.elephantsql.com:5432/qywpankx
+    volumes:
+      - ./bookapi:/code/bookapi
+      - ./db/:/db/
+    ports:
+      - "5000:5000"
